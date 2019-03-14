@@ -2,16 +2,27 @@ package business.control;
 
 import java.util.Map;
 import java.util.HashMap;
-import business.model.User;
+import business.model.*;
 import util.*;
 
 public class UserControl {
     public Map<String, User> usuarios = new HashMap();
+    public UserValidationInterface validation = new UserValidation();
     
-    public void add(String login, String password) throws UserLoginException{
+    public void add(String login, String password) throws UserLoginException,UserPasswordException{
+        
+        try{
+            
+            validation.validateLogin(login);
+            validation.validatePassword(password);
+            
+        }catch (UserLoginException | UserPasswordException e){
+            System.out.print(e);
+            throw e;
+        }
         
         if(usuarios.containsKey(login)){
-            throw new UserLoginException("Usuário já criado");
+            throw new UserLoginException("Usuário já cadastrado");
         }
         
         usuarios.put(login, new User(login,password));
@@ -21,7 +32,7 @@ public class UserControl {
     public void del(String login) throws UserLoginException{
         
         if(!usuarios.containsKey(login)){
-            throw new UserLoginException("Usuário já criado");
+            throw new UserLoginException("Usuário já cadastrado");
         }
         
         usuarios.remove(login);
