@@ -9,14 +9,12 @@ public class UserControl {
     public Map<String, User> usuarios = new HashMap();
     public UserValidationInterface validation = new UserValidation();
     
-    public void add(String login, String password) throws UserLoginException,UserPasswordException{
-        
-        try{
-            
+    public void add(String login, String password) throws UserLoginException, UserPasswordException {
+        try {
             validation.validateLogin(login);
             validation.validatePassword(password);
             
-        }catch (UserLoginException | UserPasswordException e){
+        } catch (UserLoginException | UserPasswordException e){
             System.out.print(e);
             throw e;
         }
@@ -30,11 +28,10 @@ public class UserControl {
     }
     
     public void del(String login) throws UserLoginException{
-        
         if(!usuarios.containsKey(login)){
-            throw new UserLoginException("Usuário já cadastrado");
+            throw new UserLoginException("Usuário não existe.");
         }
-        
+
         usuarios.remove(login);
         System.out.println("Usuário " + login + " removido com sucesso!");
     }
