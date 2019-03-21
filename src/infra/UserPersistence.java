@@ -8,10 +8,7 @@ package infra;
 import java.util.*;
 import java.io.*;
 
-import infra.UserPersistence;
 import business.model.User;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.InfraException;
 /**
  *
@@ -19,52 +16,60 @@ import util.InfraException;
  */
 public class UserPersistence {
     File arquivo;
-    String pers_path;
+    String pers_path = "HashMap.txt";
     
-    HashMap<String, User> loadUsers() throws InfraException{
+    public Map<String, User> loadUsers() throws InfraException{
+        File toWrite = new File(pers_path);
+        Map<String, User> users = new HashMap();
         
+        if(toWrite.exists()){
+            try
+            {
+               BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(toWrite)));
+               String l;
+               while((l = br.readLine()) != null)
+               {
+                  String[] args = l.split("[,]", 2);
+                  if(args.length != 2)continue;
+                  String login = args[0].replaceAll(" ", "");
+                  String password = args[1].replaceAll(" ", "");
+
+                  users.put(login, new User(login,password));
+               }
+               br.close();
+            } catch (FileNotFoundException ex) {
+                ex.printStackTrace();
+                throw new InfraException("Arquivo Nao Encontrado", ex);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                throw new InfraException("Sem Leitura de Arquivo", ex);
+            }
+        }
         
-        try {
-            
-            HashMap<String,User> mapInFile = new HashMap<Integer, User>();
-            
-            FileOutputStream fos =
-                     new FileOutputStream("hashmap.ser");
-                  ObjectOutputStream oos = new ObjectOutputStream(fos);
-                  oos.writeObject(mapInFile);
-
-
-            oos.close();
-            fos.close();
-            
-            return mapInFile;
-        } catch (FileNotFoundException ex) {
+        return users;
+    }
+    
+    public void saveUsers(Map<String, User> users) throws InfraException{
+        try
+        {
+           File toWrite = new File(pers_path);
+           
+           BufferedWriter bw = new BufferedWriter(new FileWriter(toWrite));
+           for(String p: users.keySet())
+           {
+              bw.write(p + "," + users.get(p).getPassword());
+              bw.newLine();
+           }
+           bw.flush();
+           bw.close();
+        }catch (FileNotFoundException ex) {
             ex.printStackTrace();
             throw new InfraException("Arquivo Nao Encontrado", ex);
         } catch (IOException ex) {
             ex.printStackTrace();
             throw new InfraException("Sem Leitura de Arquivo", ex);
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-            throw new InfraException("Erro na leitura do arquivo", ex);
         }
-    }
-    
-/*    void saveUsers (HashMap<String, User> users){
-        try{
-            File toWrite=new File(pers_path);
-            FileOutputStream fos=new FileOutputStream(toWrite);
-            PrintWriter pw=new PrintWriter(fos);
-
-            for(Map.Entry<String,User> m : users.entrySet()){
-                pw.println(m.getKey()+"="+m.getValue());
-            }
-
-            pw.flush();
-            pw.close();
-            fos.close();
-        }catch(Exception e){}
 
     }
-*/
+
 }

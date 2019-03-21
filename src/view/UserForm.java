@@ -44,4 +44,13 @@ public class UserForm {
 
         return tuple;
     }
+    
+    public String deleteCredentials() throws IOException {
+        String login = new String();
+        
+        out.print("Username: ");
+        login = in.readLine();
+
+        return login;
+    }
 }

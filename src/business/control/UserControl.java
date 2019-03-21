@@ -6,8 +6,16 @@ import business.model.*;
 import util.*;
 
 public class UserControl {
-    public Map<String, User> usuarios = new HashMap();
+    public Map<String, User> usuarios;
     public UserValidationInterface validation = new UserValidation();
+    
+    public UserControl(){
+        usuarios = new HashMap();
+    }
+    
+    public UserControl(Map<String, User> users){
+        usuarios = users;
+    }
     
     public void add(String login, String password) throws UserLoginException, UserPasswordException {
         try {
@@ -34,5 +42,9 @@ public class UserControl {
 
         usuarios.remove(login);
         System.out.println("Usuário " + login + " removido com sucesso!");
+    }
+    
+    public Map<String,User> getUsers(){
+        return usuarios;
     }
 }

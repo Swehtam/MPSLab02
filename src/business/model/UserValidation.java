@@ -10,7 +10,7 @@ import util.UserPasswordException;
 
 /**
  *
- * @author samueldemoura
+ * @author samueldemoura, swehtam
  */
 public class UserValidation implements UserValidationInterface {
     public void validateLogin(String login) throws UserLoginException {
@@ -18,7 +18,7 @@ public class UserValidation implements UserValidationInterface {
             throw new UserLoginException("Login deve ter no máximo 16 caracteres.");
         }
         
-        if (login.matches("?.*\\d.*?")) {
+        if (login.matches(".*\\\\dst.*")) {
             throw new UserLoginException("Login não pode conter números.");
         }
     }
