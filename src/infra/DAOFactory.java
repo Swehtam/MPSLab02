@@ -11,6 +11,8 @@ import util.InfraException;
 
 /**
  *
+ * This factory allows selection of what will be used for persistence.
+ * Abstract Factory design pattern.
  * @author samueldemoura
  */
 public abstract class DAOFactory {

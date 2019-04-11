@@ -7,13 +7,15 @@ package infra;
 
 import business.model.User;
 import java.util.Map;
+import util.InfraException;
 
 /**
  *
+ * Factory Method project pattern.
  * @author aluno
  */
 public class TextFileDAOFactory extends DAOFactory {
-    public UserDAO getUserDAO() {
+    public UserDAO getUserDAO() throws InfraException {
         return new TextFileUserDAO();
     }
 }

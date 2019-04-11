@@ -10,6 +10,7 @@ import java.util.Map;
 
 /**
  *
+ * Factory Method project pattern.
  * @author aluno
  */
 public class InMemoryDAOFactory extends DAOFactory {

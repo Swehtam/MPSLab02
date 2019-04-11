@@ -11,8 +11,6 @@ import infra.UserDAO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import util.InfraException;
 import util.UserLoginException;
 import util.UserPasswordException;

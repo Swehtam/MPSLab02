@@ -11,7 +11,7 @@ import util.InfraException;
 
 /**
  *
- * @author aluno
+ * @author samueldemoura
  */
 public interface UserDAO {
     public void addUser(String login, String password) throws InfraException;

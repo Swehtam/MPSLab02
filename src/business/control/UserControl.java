@@ -6,6 +6,11 @@ import business.model.*;
 import infra.UserDAO;
 import util.*;
 
+/**
+ *
+ * Responsible for user input validation business rules.
+ * Template Method project pattern in the add() and del() methods.
+ */
 public class UserControl {
     private UserDAO userDAO;
     private UserValidationInterface validation = new UserValidation();

@@ -11,7 +11,8 @@ import java.util.Map;
 
 /**
  *
- * @author aluno
+ * This DAO doesn't persist anywhere - it stays in memory only.
+ * @author samueldemoura
  */
 public class InMemoryUserDAO implements UserDAO {
     

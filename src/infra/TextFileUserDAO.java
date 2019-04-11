@@ -20,7 +20,8 @@ import util.InfraException;
 
 /**
  *
- * @author aluno
+ * This DAO persists to a simple comma-separated text file.
+ * @author samueldemoura
  */
 public class TextFileUserDAO implements UserDAO {
 
