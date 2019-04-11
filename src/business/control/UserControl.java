@@ -3,21 +3,18 @@ package business.control;
 import java.util.Map;
 import java.util.HashMap;
 import business.model.*;
+import infra.UserDAO;
 import util.*;
 
 public class UserControl {
-    public Map<String, User> usuarios;
-    public UserValidationInterface validation = new UserValidation();
+    private UserDAO userDAO;
+    private UserValidationInterface validation = new UserValidation();
     
-    public UserControl(){
-        usuarios = new HashMap();
+    public UserControl(UserDAO userDAO){
+        this.userDAO = userDAO;
     }
     
-    public UserControl(Map<String, User> users){
-        usuarios = users;
-    }
-    
-    public void add(String login, String password) throws UserLoginException, UserPasswordException {
+    public void add(String login, String password) throws UserLoginException, UserPasswordException, InfraException {
         try {
             validation.validateLogin(login);
             validation.validatePassword(password);
@@ -27,24 +24,24 @@ public class UserControl {
             throw e;
         }
         
-        if(usuarios.containsKey(login)){
+        if (userDAO.getUsers().containsKey(login)){
             throw new UserLoginException("Usuário já cadastrado");
         }
         
-        usuarios.put(login, new User(login,password));
+        userDAO.addUser(login, password);
         System.out.println("Usuário " + login + " adicionado com sucesso!");
     }
     
-    public void del(String login) throws UserLoginException{
-        if(!usuarios.containsKey(login)){
+    public void del(String login) throws UserLoginException, InfraException {
+        if(!userDAO.getUsers().containsKey(login)){
             throw new UserLoginException("Usuário não existe.");
         }
 
-        usuarios.remove(login);
+        userDAO.deleteUser(login);
         System.out.println("Usuário " + login + " removido com sucesso!");
     }
     
-    public Map<String,User> getUsers(){
-        return usuarios;
+    public Map<String,User> getUsers() throws InfraException {
+        return userDAO.getUsers();
     }
 }
