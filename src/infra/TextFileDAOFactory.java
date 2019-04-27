@@ -5,8 +5,6 @@
  */
 package infra;
 
-import business.model.User;
-import java.util.Map;
 import util.InfraException;
 
 /**
@@ -18,4 +16,8 @@ public class TextFileDAOFactory extends DAOFactory {
     public UserDAO getUserDAO() throws InfraException {
         return new TextFileUserDAO();
     }
+	
+	public PoliceReportDAO getPoliceReportDAO() throws InfraException {
+		return new TextFilePoliceReportDAO();
+	}
 }

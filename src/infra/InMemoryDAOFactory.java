@@ -5,9 +5,6 @@
  */
 package infra;
 
-import business.model.User;
-import java.util.Map;
-
 /**
  *
  * Factory Method project pattern.
@@ -17,4 +14,8 @@ public class InMemoryDAOFactory extends DAOFactory {
     public UserDAO getUserDAO() {
         return new InMemoryUserDAO();
     }
+	
+	public PoliceReportDAO getPoliceReportDAO() {
+		return new InMemoryPoliceReportDAO();
+	}
 }

@@ -5,8 +5,6 @@
  */
 package infra;
 
-import business.model.User;
-import java.util.Map;
 import util.InfraException;
 
 /**
@@ -21,6 +19,7 @@ public abstract class DAOFactory {
     public static final int INMEMORY = 2;
     
     public abstract UserDAO getUserDAO() throws InfraException;
+	public abstract PoliceReportDAO getPoliceReportDAO() throws InfraException;
     
     public static DAOFactory getDAOFactory(int factory_type) {
         switch (factory_type) {
