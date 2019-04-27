@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package business.model;
+package business.model.reports;
+import business.model.Plaintiff;
 import java.time.*;
 
 /**
