@@ -32,7 +32,6 @@ public class TextFilePoliceReportDAO implements PoliceReportDAO {
 
     private String persistence_path;
     private Map<Integer, PoliceReport> police_reports;
-	private int current_id = 0;
 
     /**
      *
@@ -78,28 +77,8 @@ public class TextFilePoliceReportDAO implements PoliceReportDAO {
     }
 
     @Override
-    public int addPoliceReport(Class type, String local_type, Plaintiff plaintiff, 
-			String address, LocalDateTime report_DateTime) {
-		PoliceReport police_report;
-		
-		try {
-			police_report = (PoliceReport)type.newInstance();
-		} catch (InstantiationException | IllegalAccessException ex) {
-			Logger.getLogger(InMemoryPoliceReportDAO.class.getName()).log(Level.SEVERE, null, ex);
-			throw new RuntimeException(ex);
-		}
-		
-		int id = current_id;
-		current_id++;
-		
-		police_report.setLocal_type(local_type);
-		police_report.setPlaintiff(plaintiff);
-		police_report.setAddress(address);
-		police_report.setReport_DateTime(report_DateTime);
-		police_report.setRegistered_DateTime(LocalDateTime.now());
-        police_reports.put(id, police_report);
-		
-		return id;
+    public void addPoliceReport(PoliceReport police_report) { 
+		police_reports.put(police_report.getId(), police_report);
     }
 
     @Override

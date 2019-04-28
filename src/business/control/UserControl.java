@@ -1,7 +1,6 @@
 package business.control;
 
 import java.util.Map;
-import java.util.HashMap;
 import business.model.*;
 import infra.UserDAO;
 import util.*;

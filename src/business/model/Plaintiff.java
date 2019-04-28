@@ -40,4 +40,14 @@ public class Plaintiff {
     public Plaintiff(String cpf, String full_name, String mothers_name, String sex) {
         this(cpf, full_name, null, mothers_name, sex);
     }
+	
+	/**
+	 * Minimal constructor.
+	 * @param cpf
+	 * @param full_name
+	 * @param sex 
+	 */
+	public Plaintiff(String cpf, String full_name, String sex) {
+        this(cpf, full_name, null, null, sex);
+    }
 }

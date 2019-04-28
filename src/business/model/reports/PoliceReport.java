@@ -6,35 +6,72 @@
 package business.model.reports;
 import business.model.Plaintiff;
 import java.time.*;
+import java.util.Map;
 
 /**
  *
- * @author aluno
+ * @author samueldemoura
  */
 abstract public class PoliceReport {
+	
+	// General fields
+	private int id;
+	private boolean is_open;
 	private Plaintiff plaintiff;
-	private String id, local_type, address;
-	LocalDateTime report_DateTime, registered_DateTime;
-	boolean status;
-	//status: when 1 police report is open
+	private String address;
+	private LocalDateTime reported_date_time, registered_date_time;
 
-	public PoliceReport(String id, String local_type, Plaintiff plaintiff, 
-			String address, LocalDateTime report_DateTime, LocalDateTime registered_DateTime) {
+	/**
+	 * Constructor.
+	 * @param id
+	 * @param is_open
+	 * @param plaintiff
+	 * @param address
+	 * @param reported_date_time
+	 * @param registered_date_time 
+	 */
+	public PoliceReport(int id, boolean is_open, Plaintiff plaintiff,
+			String address, LocalDateTime reported_date_time,
+			LocalDateTime registered_date_time) {
 		this.id = id;
+		this.is_open = is_open;
 		this.plaintiff = plaintiff;
-		this.local_type = local_type;
 		this.address = address;
-		this.report_DateTime = report_DateTime;
-		this.status = true;
-		this.registered_DateTime = registered_DateTime;
+		this.reported_date_time = reported_date_time;
+		this.registered_date_time = registered_date_time;
 	}
 
-	public String getLocal_type() {
-		return local_type;
+	/**
+	 * Details specific to a certain type of police report. Examples: stolen
+	 * items in a robbery, personal information of a missing person in a missing
+	 * person report.
+	 * @return Mapping of field name -> field contents
+	 */
+	public abstract Map<String, String> getSpecificDetails();
+	
+	// Boilerplate.
+	public int getId() {
+		return id;
 	}
 
-	public void setLocal_type(String local_type) {
-		this.local_type = local_type;
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public boolean isIs_open() {
+		return is_open;
+	}
+
+	public void setIs_open(boolean is_open) {
+		this.is_open = is_open;
+	}
+
+	public Plaintiff getPlaintiff() {
+		return plaintiff;
+	}
+
+	public void setPlaintiff(Plaintiff plaintiff) {
+		this.plaintiff = plaintiff;
 	}
 
 	public String getAddress() {
@@ -45,34 +82,21 @@ abstract public class PoliceReport {
 		this.address = address;
 	}
 
-	public LocalDateTime getReport_DateTime() {
-		return report_DateTime;
+	public LocalDateTime getReported_date_time() {
+		return reported_date_time;
 	}
 
-	public void setReport_DateTime(LocalDateTime report_DateTime) {
-		this.report_DateTime = report_DateTime;
-	}
-	
-	public void setRegistered_DateTime(LocalDateTime registered_DateTime) {
-		this.registered_DateTime = registered_DateTime;
+	public void setReported_date_time(LocalDateTime reported_date_time) {
+		this.reported_date_time = reported_date_time;
 	}
 
-	public boolean isStatus() {
-		return status;
+	public LocalDateTime getRegistered_date_time() {
+		return registered_date_time;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
+	public void setRegistered_date_time(LocalDateTime registered_date_time) {
+		this.registered_date_time = registered_date_time;
 	}
-
-	public Plaintiff getPlaintiff() {
-		return plaintiff;
-	}
-
-	public void setPlaintiff(Plaintiff plaintiff) {
-		this.plaintiff = plaintiff;
-	}
-	
 	
 	
 }
