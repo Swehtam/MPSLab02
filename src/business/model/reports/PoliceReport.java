@@ -19,14 +19,14 @@ abstract public class PoliceReport {
 	//status: when 1 police report is open
 
 	public PoliceReport(String id, String local_type, Plaintiff plaintiff, 
-			String address, LocalDateTime report_DateTime) {
+			String address, LocalDateTime report_DateTime, LocalDateTime registered_DateTime) {
 		this.id = id;
 		this.plaintiff = plaintiff;
 		this.local_type = local_type;
 		this.address = address;
 		this.report_DateTime = report_DateTime;
 		this.status = true;
-		this.registered_DateTime = LocalDateTime.now();
+		this.registered_DateTime = registered_DateTime;
 	}
 
 	public String getLocal_type() {
@@ -51,6 +51,10 @@ abstract public class PoliceReport {
 
 	public void setReport_DateTime(LocalDateTime report_DateTime) {
 		this.report_DateTime = report_DateTime;
+	}
+	
+	public void setRegistered_DateTime(LocalDateTime registered_DateTime) {
+		this.registered_DateTime = registered_DateTime;
 	}
 
 	public boolean isStatus() {

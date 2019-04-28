@@ -16,7 +16,7 @@ import util.InfraException;
  * @author samueldemoura
  */
 public interface PoliceReportDAO {
-    public void addPoliceReport(int id, String local_type, Plaintiff plaintiff, 
+    public int addPoliceReport(Class type, String local_type, Plaintiff plaintiff, 
 			String address, LocalDateTime report_DateTime) throws InfraException;
     public void deletePoliceReport(int id) throws InfraException;
     public Map<Integer, PoliceReport> getPoliceReports() throws InfraException;

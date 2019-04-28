@@ -19,6 +19,8 @@ import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.InfraException;
 
 /**
@@ -30,6 +32,7 @@ public class TextFilePoliceReportDAO implements PoliceReportDAO {
 
     private String persistence_path;
     private Map<Integer, PoliceReport> police_reports;
+	private int current_id = 0;
 
     /**
      *
@@ -75,11 +78,28 @@ public class TextFilePoliceReportDAO implements PoliceReportDAO {
     }
 
     @Override
-    public void addPoliceReport(int id, String local_type, Plaintiff plaintiff, 
+    public int addPoliceReport(Class type, String local_type, Plaintiff plaintiff, 
 			String address, LocalDateTime report_DateTime) {
-		// TODO: can't instantiate PoliceReport. Must pass along report type, but where?
-		throw new UnsupportedOperationException();
-        //police_reports.put(id, new PoliceReport(id, local_type, plaintiff, address, report_DateTime));
+		PoliceReport police_report;
+		
+		try {
+			police_report = (PoliceReport)type.newInstance();
+		} catch (InstantiationException | IllegalAccessException ex) {
+			Logger.getLogger(InMemoryPoliceReportDAO.class.getName()).log(Level.SEVERE, null, ex);
+			throw new RuntimeException(ex);
+		}
+		
+		int id = current_id;
+		current_id++;
+		
+		police_report.setLocal_type(local_type);
+		police_report.setPlaintiff(plaintiff);
+		police_report.setAddress(address);
+		police_report.setReport_DateTime(report_DateTime);
+		police_report.setRegistered_DateTime(LocalDateTime.now());
+        police_reports.put(id, police_report);
+		
+		return id;
     }
 
     @Override
