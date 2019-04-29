@@ -12,7 +12,7 @@ package business.model;
 public class Plaintiff {
     
     // Attributes
-    private String cpf, full_name, fathers_name, mothers_name, sex; 
+    private String cpf, full_name, fathers_name, mothers_name, sex;
 
     /**
      * Constructor.
@@ -41,13 +41,53 @@ public class Plaintiff {
         this(cpf, full_name, null, mothers_name, sex);
     }
 	
-	/**
-	 * Minimal constructor.
-	 * @param cpf
-	 * @param full_name
-	 * @param sex 
-	 */
-	public Plaintiff(String cpf, String full_name, String sex) {
+    /**
+     * Minimal constructor.
+     * @param cpf
+     * @param full_name
+     * @param sex 
+     */
+    public Plaintiff(String cpf, String full_name, String sex) {
         this(cpf, full_name, null, null, sex);
+    }
+    
+    public void setCPF(String cpf){
+        this.cpf = cpf;
+    }
+    
+    public String getCPF(){
+        return this.cpf;
+    }
+    
+    public void setFullName(String full_name){
+        this.full_name = full_name;
+    }
+    
+    public String getFullName(){
+        return this.full_name;
+    }
+    
+    public void setFathersName(String fathers_name){
+        this.fathers_name = fathers_name;
+    }
+    
+    public String getFathersName(){
+        return this.fathers_name;
+    }
+    
+    public void setMothersName(String mothers_name){
+        this.mothers_name = mothers_name;
+    }
+    
+    public String getMothersName(){
+        return this.mothers_name;
+    }
+    
+    public void setSex(String sex){
+        this.sex = sex;
+    }
+    
+    public String getSex(){
+        return this.sex;
     }
 }
