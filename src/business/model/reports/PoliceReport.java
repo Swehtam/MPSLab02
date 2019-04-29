@@ -7,7 +7,6 @@ package business.model.reports;
 import business.model.Plaintiff;
 import java.time.*;
 import java.util.Map;
-
 /**
  *
  * @author samueldemoura
