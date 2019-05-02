@@ -10,6 +10,7 @@ package business.model;
  * @author samueldemoura
  */
 public class User {
+
     private String login;
     private String password;
 
@@ -33,4 +34,5 @@ public class User {
         this.login = login;
         this.password = password;
     }
+
 }

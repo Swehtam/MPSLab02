@@ -6,6 +6,7 @@ import business.model.reports.PoliceReport;
 import infra.PoliceReportDAO;
 import infra.ReportFile;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
 import util.*;
 
@@ -17,11 +18,16 @@ public class PoliceReportControl {
     private final PoliceReportDAO police_reportDAO;
     private int current_id;
     private final ReportFile report;
+    private Map<String, Command> commands;
 
     public PoliceReportControl(PoliceReportDAO police_reportDAO, ReportFile report) {
         this.police_reportDAO = police_reportDAO;
         this.report = report;
         this.current_id = 0;
+        
+        this.commands = new HashMap<>();
+        commands.put("add", new PoliceReportAddCommand(police_reportDAO, report));
+        commands.put("del", new PoliceReportDeleteCommand(police_reportDAO, report));
     }
 
     public int add(
@@ -36,40 +42,28 @@ public class PoliceReportControl {
         int id = current_id;
         current_id++;
 
-        // Instantiate plaintiff
-        Plaintiff plaintiff = new Plaintiff(plaintiff_cpf, plaintiff_name, plaintiff_sex);
-
-        // Instantiate the specificied police report type
-        PoliceReport police_report;
-        try {
-            police_report = (PoliceReport) report_type.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
-            throw new RuntimeException(ex);
-        }
-
-        // Set fields
-        police_report.setId(id);
-        police_report.setIs_open(true);
-        police_report.setPlaintiff(plaintiff);
-        police_report.setAddress(address);
-        police_report.setReported_date_time(reported_date_time);
-        police_report.setRegistered_date_time(LocalDateTime.now());
-
-        // Send to DAO and return id of the newly added police report
-        report.getAddedPR(police_report);
-        police_reportDAO.addPoliceReport(police_report);
+        // Validation rules go here
+        Map<String, Object> args = new HashMap<>();
+        args.put("id", id);
+        args.put("plaintiff_cpf", plaintiff_cpf);
+        args.put("plaintiff_name", plaintiff_name);
+        args.put("plaintiff_sex", plaintiff_sex);
+        args.put("report_type", report_type);
+        args.put("address", address);
+        args.put("reported_date_time", reported_date_time);
+        
+        // Call command
+        commands.get("add").execute(args);
         return id;
     }
 
     public void del(int id) throws NoSuchElementException, InfraException {
-        if (!police_reportDAO.getPoliceReports().containsKey(id)) {
-            throw new NoSuchElementException("Usuário não existe.");
-        }
-
-        PoliceReport police_report;
-        police_report = police_reportDAO.getPoliceReports().get(id);
-        report.getRemovedPR(police_report);
-        police_reportDAO.deletePoliceReport(id);
+        // Call command
+        Map<String, Object> args = new HashMap<>();
+        args.put("id", id);
+        
+        // Call command
+        commands.get("del").execute(args);
     }
 
     public Map<Integer, PoliceReport> getPoliceReports() throws InfraException {
