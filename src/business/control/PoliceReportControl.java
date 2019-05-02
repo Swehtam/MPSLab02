@@ -58,7 +58,7 @@ public class PoliceReportControl {
     }
 
     public void del(int id) throws NoSuchElementException, InfraException {
-        // Call command
+        // Validation rules go here
         Map<String, Object> args = new HashMap<>();
         args.put("id", id);
         

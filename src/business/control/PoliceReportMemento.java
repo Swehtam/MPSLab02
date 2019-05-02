@@ -17,7 +17,10 @@ public class PoliceReportMemento {
     private PoliceReport status;
     
     public PoliceReportMemento(PoliceReport police_report) {
-        this.status = police_report;
+        // TODO: Implement this properly (copy over fields to new object)
+        throw new UnsupportedOperationException();
+        
+        //this.status = police_report;
     }
     
 }

@@ -54,14 +54,14 @@ abstract public class PoliceReport {
     public abstract Map<String, String> getSpecificDetails();
 
     public PoliceReportMemento memento() {
-        // TODO
+        // TODO: Create new memento using the fields from this instance
         throw new UnsupportedOperationException();
         
         //return new PoliceReportMemento();
     }
 
     public void revert(PoliceReportMemento m) {
-        // TODO
+        // TODO: Read fields from memento and copy over into this instance
         throw new UnsupportedOperationException();
     }
 
