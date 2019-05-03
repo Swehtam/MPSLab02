@@ -17,13 +17,13 @@ public class PoliceReportManager {
     
     private Stack<PoliceReportMemento> history = new Stack<>();
     
-    public void memento(PoliceReport police_report) {
-        history.push(police_report.memento());
+    public void saveMemento(PoliceReportMemento police_report) {
+        history.push(police_report);
     }
     
-    public void revert(PoliceReport police_report) {
-        if (history.empty()) return;
-        police_report.revert(history.pop());
+    public PoliceReportMemento revert() {
+        if (history.empty()) return null;
+        return history.pop();
     }
     
 }

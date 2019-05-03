@@ -16,6 +16,7 @@ import util.*;
 public class PoliceReportControl {
 
     private final PoliceReportDAO police_reportDAO;
+    private final PoliceReportManager policeReportManager;
     private int current_id;
     private final ReportFile report;
     private Map<String, Command> commands;
@@ -23,6 +24,7 @@ public class PoliceReportControl {
     public PoliceReportControl(PoliceReportDAO police_reportDAO, ReportFile report) {
         this.police_reportDAO = police_reportDAO;
         this.report = report;
+        this.policeReportManager = new PoliceReportManager();
         this.current_id = 0;
         
         this.commands = new HashMap<>();
@@ -53,7 +55,12 @@ public class PoliceReportControl {
         args.put("reported_date_time", reported_date_time);
         
         // Call command
-        commands.get("add").execute(args);
+        PoliceReport pR = (PoliceReport) commands.get("add").execute(args);
+        /*
+        ** Saving the String as "del" because it's the operation that 
+        ** needs to be done to revert
+        */
+        policeReportManager.saveMemento(pR.createMemento("del"));
         return id;
     }
 
@@ -63,7 +70,18 @@ public class PoliceReportControl {
         args.put("id", id);
         
         // Call command
-        commands.get("del").execute(args);
+        PoliceReport pr = (PoliceReport) commands.get("del").execute(args);
+        /*
+        ** Saving the String as "add" because it's the operation that 
+        ** needs to be done to revert
+        */
+        policeReportManager.saveMemento(pr.createMemento("add"));
+    }
+    
+    public void revert() throws InfraException{
+        PoliceReportMemento pRMemento = policeReportManager.revert();
+        String status = pRMemento.getStatus();
+        commands.get(status).execute(pRMemento.getMap());
     }
 
     public Map<Integer, PoliceReport> getPoliceReports() throws InfraException {

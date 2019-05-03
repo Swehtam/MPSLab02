@@ -37,7 +37,7 @@ public class PoliceReportDeleteCommand implements Command {
         report_file.getRemovedPR(police_report);
         DAO.deletePoliceReport((Integer) args.get("id"));
         
-        return null;
+        return police_report;
     }
 
 }
