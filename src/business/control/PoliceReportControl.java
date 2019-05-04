@@ -60,7 +60,7 @@ public class PoliceReportControl {
         ** Saving the String as "del" because it's the operation that 
         ** needs to be done to revert
         */
-        policeReportManager.saveMemento(pR.createMemento("del"));
+        policeReportManager.saveMemento(pR.createMemento(args, "del"));
         return id;
     }
 
@@ -71,17 +71,23 @@ public class PoliceReportControl {
         
         // Call command
         PoliceReport pr = (PoliceReport) commands.get("del").execute(args);
+        args.put("plaintiff_cpf", pr.getPlaintiff().getCPF());
+        args.put("plaintiff_name", pr.getPlaintiff().getFullName());
+        args.put("plaintiff_sex", pr.getPlaintiff().getSex());
+        args.put("report_type", pr.getClass().toString());
+        args.put("address", pr.getAddress());
+        args.put("reported_date_time", pr.getReported_date_time());
         /*
         ** Saving the String as "add" because it's the operation that 
         ** needs to be done to revert
         */
-        policeReportManager.saveMemento(pr.createMemento("add"));
+        policeReportManager.saveMemento(pr.createMemento(args, "add"));
     }
     
     public void revert() throws InfraException{
         PoliceReportMemento pRMemento = policeReportManager.revert();
         String status = pRMemento.getStatus();
-        commands.get(status).execute(pRMemento.getMap());
+        commands.get(status).execute(pRMemento.getArgs());
     }
 
     public Map<Integer, PoliceReport> getPoliceReports() throws InfraException {

@@ -8,6 +8,7 @@ package business.model.reports;
 import business.control.PoliceReportMemento;
 import business.model.Plaintiff;
 import java.time.*;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -53,9 +54,9 @@ abstract public class PoliceReport {
      */
     public abstract Map<String, String> getSpecificDetails();
 
-    public PoliceReportMemento createMemento(String status) {
+    public PoliceReportMemento createMemento(Map<String, Object> args, String status) {
         // TODO: Create new memento using the fields from this instance
-        return new PoliceReportMemento(this, status);
+        return new PoliceReportMemento(args, status);
         
         //return new PoliceReportMemento();
     }
