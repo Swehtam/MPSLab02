@@ -1,7 +1,6 @@
 package business.control;
 
 import java.util.Map;
-import business.model.*;
 import business.model.reports.PoliceReport;
 import infra.PoliceReportDAO;
 import infra.ReportFile;
@@ -11,7 +10,8 @@ import java.util.NoSuchElementException;
 import util.*;
 
 /**
- * Responsible for police report business rules. Facade.
+ * Responsible for police report business rules.
+ * Facade project pattern.
  */
 public class PoliceReportControl {
 
@@ -56,10 +56,11 @@ public class PoliceReportControl {
         
         // Call command
         PoliceReport pR = (PoliceReport) commands.get("add").execute(args);
-        /*
-        ** Saving the String as "del" because it's the operation that 
-        ** needs to be done to revert
-        */
+        
+        /**
+         * Saving the String as "del" because that's the operation that 
+         * needs to be done to revert
+         */
         policeReportManager.saveMemento(pR.createMemento(args, "del"));
         return id;
     }
@@ -77,10 +78,11 @@ public class PoliceReportControl {
         args.put("report_type", pr.getClass().toString());
         args.put("address", pr.getAddress());
         args.put("reported_date_time", pr.getReported_date_time());
-        /*
-        ** Saving the String as "add" because it's the operation that 
-        ** needs to be done to revert
-        */
+        
+        /**
+         * Saving the String as "add" because that's the operation that 
+         * needs to be done to revert
+         */
         policeReportManager.saveMemento(pr.createMemento(args, "add"));
     }
     
