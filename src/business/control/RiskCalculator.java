@@ -29,7 +29,7 @@ public class RiskCalculator {
     }
     
     public int calculate(String address, int radius) throws InfraException {
-        Double[] coordinates = geocoder.reverseGeocode(address);
+        double[] coordinates = geocoder.reverseGeocode(address);
         Map<Integer, PoliceReport> prs_in_radius = pr_control.getPoliceReports();
         
         for (Iterator i = prs_in_radius.entrySet().iterator(); i.hasNext(); ) {
